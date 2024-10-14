@@ -29,7 +29,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 2; // Default tampilan awal di Beranda
-
   final List<Widget> _screens = [
     const PengaduanScreen(),
     const RatingScreen(),
@@ -37,54 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
     const KehilanganScreen(),
     const ProfileScreen(),
   ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: _currentIndex == 0
-                ? _buildSelectedIcon("../images/pengaduan.png", "Pengaduan")
-                : _buildUnselectedIcon("../images/pengaduan.png", "Pengaduan"),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 1
-                ? _buildSelectedIcon("../images/Rating.png", "Rating")
-                : _buildUnselectedIcon("../images/Rating.png", "Rating"),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 2
-                ? _buildSelectedIcon("../images/Beranda.png", "Beranda")
-                : _buildUnselectedIcon("../images/Beranda.png", "Beranda"),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 3
-                ? _buildSelectedIcon("../images/Kehilangan.png", "Kehilangan")
-                : _buildUnselectedIcon("../images/Kehilangan.png", "Kehilangan"),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 4
-                ? _buildSelectedIcon("../images/Profile.png", "Profile")
-                : _buildUnselectedIcon("../images/Profile.png", "Profile"),
-            label: '',
-          ),
-        ],
-      ),
-    );
-  }
 
   // Widget untuk ikon yang dipilih
   Widget _buildSelectedIcon(String assetPath, String label) {
@@ -142,6 +93,54 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: _currentIndex == 0
+                ? _buildSelectedIcon("../images/pengaduan.png", "Pengaduan")
+                : _buildUnselectedIcon("../images/pengaduan.png", "Pengaduan"),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 1
+                ? _buildSelectedIcon("../images/Rating.png", "Rating")
+                : _buildUnselectedIcon("../images/Rating.png", "Rating"),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 2
+                ? _buildSelectedIcon("../images/Beranda.png", "Beranda")
+                : _buildUnselectedIcon("../images/Beranda.png", "Beranda"),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 3
+                ? _buildSelectedIcon("../images/Kehilangan.png", "Kehilangan")
+                : _buildUnselectedIcon("../images/Kehilangan.png", "Kehilangan"),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 4
+                ? _buildSelectedIcon("../images/Profile.png", "Profile")
+                : _buildUnselectedIcon("../images/Profile.png", "Profile"),
+            label: '',
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class ProfileScreen extends StatefulWidget {
@@ -150,15 +149,23 @@ class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
-
+ 
 class _ProfileScreenState extends State<ProfileScreen> {
   // Controllers to get the input values
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+
+  bool _isPasswordVisible = false; // State to control password visibility
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var textField = TextField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        hintText: "Masukkan email",
+                      ),
+                    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF060A47), // Warna biru tua
@@ -184,140 +191,149 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.grey,
-              child: Icon(
-                Icons.person,
-                size: 50,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                // Aksi untuk ubah avatar
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Ubah Avatar ditekan!")),
-                );
-              },
-              child: const Text(
-                "Ubah Avatar",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
+      body: SingleChildScrollView( // Makes the content scrollable
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.grey,
+                child: Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.white,
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      "Email",
-                      style: TextStyle(fontSize: 16, color: Colors.black54),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  TextField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      hintText: "Masukkan email",
-                    ),
-                  ),
-                  const Divider(),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      "No Telp",
-                      style: TextStyle(fontSize: 16, color: Colors.black54),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  TextField(
-                    controller: _phoneController,
-                    decoration: const InputDecoration(
-                      hintText: "Masukkan nomor telepon",
-                    ),
-                  ),
-                  const Divider(),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      "Password",
-                      style: TextStyle(fontSize: 16, color: Colors.black54),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: "Masukkan password",
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
+              const SizedBox(height: 10),
+              TextButton(
                 onPressed: () {
-                  // Tambahkan aksi logout
+                  // Aksi untuk ubah avatar
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Logout ditekan!")),
+                    const SnackBar(content: Text("Ubah Avatar ditekan!")),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  padding: const EdgeInsets.all(15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
                 child: const Text(
-                  "Logout",
+                  "Ubah Avatar",
                   style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Email",
+                        style: TextStyle(fontSize: 16, color: Colors.black54),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    textField,
+                    const Divider(),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "No Telp",
+                        style: TextStyle(fontSize: 16, color: Colors.black54),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    TextField(
+                      controller: _phoneController,
+                      decoration: const InputDecoration(
+                        hintText: "Masukkan nomor telepon",
+                      ),
+                    ),
+                    const Divider(),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Password",
+                        style: TextStyle(fontSize: 16, color: Colors.black54),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    TextField(
+                      controller: _passwordController,
+                      obscureText: !_isPasswordVisible, // Toggle password visibility
+                      decoration: InputDecoration(
+                        hintText: "Masukkan password",
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20), // Space before the logout button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Tambahkan aksi logout
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Logout ditekan!")),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(231, 217, 37, 13),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    "Logout",
+                    style: TextStyle(
+                      color: Colors.white, // Warna teks putih
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
+
 class PengaduanScreen extends StatelessWidget {
   const PengaduanScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Layar Pengaduan'),
+    return const Scaffold(
+      body: Center(child: Text("Pengaduan Screen")),
     );
   }
 }
@@ -327,8 +343,8 @@ class RatingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Layar Rating'),
+    return const Scaffold(
+      body: Center(child: Text("Rating Screen")),
     );
   }
 }
@@ -338,8 +354,8 @@ class BerandaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Layar Beranda'),
+    return const Scaffold(
+      body: Center(child: Text("Beranda Screen")),
     );
   }
 }
@@ -349,8 +365,8 @@ class KehilanganScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Layar Kehilangan'),
+    return const Scaffold(
+      body: Center(child: Text("Kehilangan Screen")),
     );
   }
 }
