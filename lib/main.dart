@@ -503,9 +503,9 @@ class ServiceDetailPage extends StatelessWidget {
                       Navigator.pop(context); // Kembali ke halaman sebelumnya
                     },
                   ),
-                  Text(
+                  const Text(
                       'Detail Review',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white, // Mengubah warna teks menjadi putih
                         fontSize: 18.0, // Tentukan ukuran font secara langsung
                       ),
@@ -599,15 +599,15 @@ class ServiceDetailPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Row(
+                              const Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.calendar_today,
                                     color: Colors.grey,
                                     size: 16,
                                   ),
-                                  const SizedBox(width: 4),
-                                  const Text(
+                                  SizedBox(width: 4),
+                                  Text(
                                     'Terakhir Update : 1 September 2024',
                                     style: TextStyle(
                                       fontSize: 14,
@@ -686,9 +686,9 @@ class ServiceDetailPage extends StatelessWidget {
                                     ), // Ganti dengan gambar avatar
                                   ),
                                   const SizedBox(width: 8),
-                                  Column(
+                                  const Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const [
+                                    children: [
                                       Text(
                                         'Melia Apriani', // Nama pengguna
                                         style: TextStyle(
@@ -745,9 +745,9 @@ class ServiceDetailPage extends StatelessWidget {
                                 style: TextStyle(fontSize: 14),
                               ),
                               const SizedBox(height: 8),
-                              Row(
+                              const Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                children: const [
+                                children: [
                                   Text(
                                     '56 orang merasa ulasan ini berguna',
                                     style: TextStyle(
@@ -774,6 +774,8 @@ class ServiceDetailPage extends StatelessWidget {
 }
 
 class DetailRatingPage extends StatelessWidget {
+  const DetailRatingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Data default yang akan ditampilkan
@@ -881,14 +883,21 @@ class DetailRatingPage extends StatelessWidget {
                                   const SnackBar(content: Text('Review berhasil dihapus')),
                                 );
                               },
-                              child: const Text("Hapus"),
+                              child: const Text(
+                                "Hapus"
+                              ),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  child: const Text('Hapus'),
+                  child: const Text(
+                    'Hapus',
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                  ),
                 ),
               ],
             ),
