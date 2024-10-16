@@ -713,7 +713,7 @@ class ServiceDetailPage extends StatelessWidget {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => DetailRatingPage(),
+                                            builder: (context) => const DetailRatingPage(),
                                           ),
                                         );
                                       }
