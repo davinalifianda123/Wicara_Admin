@@ -497,7 +497,7 @@ class ServiceDetailPage extends StatelessWidget {
                     },
                   ),
                   Text(
-                      service.name,
+                      'Detail Review',
                       style: const TextStyle(
                         color: Colors.white, // Mengubah warna teks menjadi putih
                         fontSize: 18.0, // Tentukan ukuran font secara langsung
@@ -552,9 +552,203 @@ class ServiceDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Contoh konten yang bisa digulir
-                  
-                  // Tambahkan lebih banyak konten di sini sesuai kebutuhan
+                  // Detail layanan
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 4,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(10),
+                          ),
+                          child: Image.asset(
+                            service.imageUrl,
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                service.name,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.calendar_today,
+                                    color: Colors.grey,
+                                    size: 16,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  const Text(
+                                    'Terakhir Update : 1 September 2024',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Text(
+                                    '${service.rating}/5',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Row(
+                                    children: List.generate(5, (index) {
+                                      if (index < service.rating) {
+                                        return const Icon(
+                                          Icons.star,
+                                          color: Colors.orange,
+                                          size: 20,
+                                        );
+                                      } else {
+                                        return const Icon(
+                                          Icons.star_border,
+                                          color: Colors.orange,
+                                          size: 20,
+                                        );
+                                      }
+                                    }),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '${service.reviews} Reviews',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  // Daftar Review
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 5, // Jumlah review yang ditampilkan, bisa diubah
+                    itemBuilder: (context, index) {
+                      return Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: const EdgeInsets.only(bottom: 16),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                      '../images/avatar_placeholder.png',
+                                    ), // Ganti dengan gambar avatar
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: const [
+                                      Text(
+                                        'Melia Apriani', // Nama pengguna
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        '15/04/23', // Tanggal ulasan
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  // Popup menu button
+                                  PopupMenuButton<String>(
+                                    onSelected: (value) {
+                                      if (value == 'detail') {
+                                        // Navigasi ke halaman detail rating
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => DetailRatingPage(),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    itemBuilder: (BuildContext context) {
+                                      return [
+                                        const PopupMenuItem(
+                                          value: 'detail',
+                                          child: Text('Lihat Detail'),
+                                        ),
+                                      ];
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: List.generate(5, (index) {
+                                  return const Icon(
+                                    Icons.star,
+                                    color: Colors.orange,
+                                    size: 16,
+                                  );
+                                }),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Ac nya dingin beuttt...serasa di kutub mungkin lain kali bisa diganti AC nya jadi Angin Cepoi Cepoi xixixixixi',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: const [
+                                  Text(
+                                    '56 orang merasa ulasan ini berguna',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -564,6 +758,134 @@ class ServiceDetailPage extends StatelessWidget {
     );
   }
 }
+
+class DetailRatingPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Data default yang akan ditampilkan
+    final idController = TextEditingController(text: 'A0056');
+    final userController = TextEditingController(text: 'Miaauw@polines.ac.id');
+    final instansiController = TextEditingController(text: 'Poliklinik');
+    final ratingController = TextEditingController(text: '5');
+    final tanggalController = TextEditingController(text: '01-09-2024');
+    final deskripsiController = TextEditingController(
+      text:
+          'Kepada warga solinep, tolong laptop sya hilang disekitaran mdh. Bentuknya kayak digambar. Yang menemukan saya doakan masuk surga. Bisa hubungi ini ya : 098726177228819',
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail Rating'),
+        backgroundColor: const Color(0xFF060A47),
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Ubah warna back button menjadi putih
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: idController, // Menggunakan controller
+              enabled: false,
+              decoration: const InputDecoration(
+                labelText: 'ID',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: userController, // Menggunakan controller
+              enabled: false,
+              decoration: const InputDecoration(
+                labelText: 'User',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: instansiController, // Menggunakan controller
+              enabled: false,
+              decoration: const InputDecoration(
+                labelText: 'Instansi',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: ratingController, // Menggunakan controller
+              enabled: false,
+              decoration: const InputDecoration(
+                labelText: 'Skala Bintang',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: tanggalController, // Menggunakan controller
+              enabled: false,
+              decoration: const InputDecoration(
+                labelText: 'Tanggal',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: deskripsiController, // Menggunakan controller
+              enabled: false,
+              maxLines: 4,
+              decoration: const InputDecoration(
+                labelText: 'Deskripsi',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red, // Warna tombol
+                  ),
+                  onPressed: () {
+                    // Tampilkan dialog konfirmasi
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Konfirmasi"),
+                          content: const Text("Apakah Anda yakin ingin menghapus review ini?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Tutup dialog
+                              },
+                              child: const Text("Batal"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                // Logika penghapusan review
+                                Navigator.of(context).pop(); // Tutup dialog
+                                Navigator.pop(context); // Kembali ke halaman sebelumnya
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Review berhasil dihapus')),
+                                );
+                              },
+                              child: const Text("Hapus"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: const Text('Hapus'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 class BerandaScreen extends StatelessWidget {
   const BerandaScreen({super.key});
 
