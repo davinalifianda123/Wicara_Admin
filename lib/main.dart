@@ -503,9 +503,9 @@ class ServiceDetailPage extends StatelessWidget {
                       Navigator.pop(context); // Kembali ke halaman sebelumnya
                     },
                   ),
-                  Text(
+                  const Text(
                       'Detail Review',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white, // Mengubah warna teks menjadi putih
                         fontSize: 18.0, // Tentukan ukuran font secara langsung
                       ),
@@ -599,15 +599,15 @@ class ServiceDetailPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Row(
+                              const Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.calendar_today,
                                     color: Colors.grey,
                                     size: 16,
                                   ),
-                                  const SizedBox(width: 4),
-                                  const Text(
+                                  SizedBox(width: 4),
+                                  Text(
                                     'Terakhir Update : 1 September 2024',
                                     style: TextStyle(
                                       fontSize: 14,
@@ -665,7 +665,7 @@ class ServiceDetailPage extends StatelessWidget {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 5, // Jumlah review yang ditampilkan, bisa diubah
+                    itemCount: 5, // Jumlah review yang ditampilkan
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
@@ -763,6 +763,8 @@ class ServiceDetailPage extends StatelessWidget {
 }
 
 class DetailRatingPage extends StatelessWidget {
+  const DetailRatingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Data default yang akan ditampilkan
@@ -870,14 +872,21 @@ class DetailRatingPage extends StatelessWidget {
                                   const SnackBar(content: Text('Review berhasil dihapus')),
                                 );
                               },
-                              child: const Text("Hapus"),
+                              child: const Text(
+                                "Hapus"
+                              ),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  child: const Text('Hapus', style: TextStyle(color: Colors.white),),
+                  child: const Text(
+                    'Hapus',
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                  ),
                 ),
               ],
             ),
