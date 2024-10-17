@@ -667,102 +667,91 @@ class ServiceDetailPage extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5, // Jumlah review yang ditampilkan, bisa diubah
                     itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        margin: const EdgeInsets.only(bottom: 16),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  const CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                      '../images/avatar_placeholder.png',
-                                    ), // Ganti dengan gambar avatar
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const [
-                                      Text(
-                                        'Melia Apriani', // Nama pengguna
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        '15/04/23', // Tanggal ulasan
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  // Popup menu button
-                                  PopupMenuButton<String>(
-                                    onSelected: (value) {
-                                      if (value == 'detail') {
-                                        // Navigasi ke halaman detail rating
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => DetailRatingPage(),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    itemBuilder: (BuildContext context) {
-                                      return [
-                                        const PopupMenuItem(
-                                          value: 'detail',
-                                          child: Text('Lihat Detail'),
-                                        ),
-                                      ];
-                                    },
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: List.generate(5, (index) {
-                                  return const Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 16,
-                                  );
-                                }),
-                              ),
-                              const SizedBox(height: 8),
-                              const Text(
-                                'Ac nya dingin beuttt...serasa di kutub mungkin lain kali bisa diganti AC nya jadi Angin Cepoi Cepoi xixixixixi',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: const [
-                                  Text(
-                                    '56 orang merasa ulasan ini berguna',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 12,
+                      return InkWell(
+                        onTap: () {
+                          // Navigasi ke halaman DetailRatingPage
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailRatingPage(),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          margin: const EdgeInsets.only(bottom: 16),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const CircleAvatar(
+                                      backgroundImage: AssetImage(
+                                        '../images/avatar_placeholder.png',
+                                      ), // Ganti dengan gambar avatar
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    const SizedBox(width: 8),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: const [
+                                        Text(
+                                          'Melia Apriani', // Nama pengguna
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          '15/04/23', // Tanggal ulasan
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: List.generate(5, (index) {
+                                    return const Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                      size: 16,
+                                    );
+                                  }),
+                                ),
+                                const SizedBox(height: 8),
+                                const Text(
+                                  'Ac nya dingin beuttt...serasa di kutub mungkin lain kali bisa diganti AC nya jadi Angin Cepoi Cepoi xixixixixi',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: const [
+                                    Text(
+                                      '56 orang merasa ulasan ini berguna',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
                     },
-                  ),
+                  )
                 ],
               ),
             ),
@@ -888,7 +877,7 @@ class DetailRatingPage extends StatelessWidget {
                       },
                     );
                   },
-                  child: const Text('Hapus'),
+                  child: const Text('Hapus', style: TextStyle(color: Colors.white),),
                 ),
               ],
             ),
